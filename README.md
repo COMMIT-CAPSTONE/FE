@@ -1,16 +1,9 @@
-# capstone_project
+## 각자 맡은 페이지 자기 이름 밑에 적으시고 했는지 여부
+# 부족한 점이나 미완성한점 어려운점, 못하겠다 등 이런거 적어주세요
 
-A new Flutter project.
 
-## Getting Started
+추승주
 
-This project is a starting point for a Flutter application.
+변지우
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+김세환
