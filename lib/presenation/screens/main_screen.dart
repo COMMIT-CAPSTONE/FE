@@ -11,7 +11,7 @@ class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
   void _onTap() {
-    
+
   }
 
   final List<Widget> _screens = [];
