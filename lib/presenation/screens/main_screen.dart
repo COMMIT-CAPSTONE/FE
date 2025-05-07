@@ -10,7 +10,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
-  void _onTap() {}
+  void _onTap() {
+    
+  }
 
   final List<Widget> _screens = [];
 
