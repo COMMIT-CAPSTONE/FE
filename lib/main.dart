@@ -1,4 +1,4 @@
-import 'package:capstone_project/main_screen.dart';
+import 'package:capstone_project/presenation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -19,7 +19,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: [BottomNavigationBarItem(icon: Icon(icon))],
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.percent)),
+          BottomNavigationBarItem(icon: Icon(Icons.percent)),
+          BottomNavigationBarItem(icon: Icon(Icons.percent)),
+          BottomNavigationBarItem(icon: Icon(Icons.percent)),
+        ],
       ),
     );
   }
