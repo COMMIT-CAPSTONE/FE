@@ -1,6 +1,6 @@
 import 'package:capstone_project/presenation/components/custom_button.dart';
+import 'package:capstone_project/presenation/screens/main_screen.dart';
 import 'package:capstone_project/presenation/screens/sign_in_screen.dart';
-import 'package:capstone_project/presenation/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
@@ -55,7 +55,7 @@ class StartScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  MaterialPageRoute(builder: (context) => MainScreen()),
                 );
               },
             ),

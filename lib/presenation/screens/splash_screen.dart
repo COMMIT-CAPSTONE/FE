@@ -33,11 +33,14 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(width: 180, height: 180, color: Colors.black),
+            Container(width: 170, height: 170, color: Colors.red),
             SizedBox(height: 25),
             Text(
-              '어플리케이션 이름',
-              style: TextStyle(color: Colors.red, fontSize: 20),
+                '어플리케이션 이름',
+                style: TextStyle(color: Colors.black,
+                    fontSize: 20,
+                    fontFamily: 'NotoSansKR',
+                    fontWeight: FontWeight.w700),
             ),
           ],
         ),
