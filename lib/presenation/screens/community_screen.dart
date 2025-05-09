@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
 
-class CommunityScreen extends StatelessWidget {
+class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
 
   @override
+  State<CommunityScreen> createState() => _CommunityScreenState();
+}
+
+class _CommunityScreenState extends State<CommunityScreen> {
+  final List<String> _comments = [];
+
+  void add() {
+    _comments.insert(0, 'adsf');
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: _comments.map((e) => Center(child: Text("asdf"))).toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            add();
+          });
+        },
+        backgroundColor: Colors.red,
+        child: Icon(Icons.add, color: Colors.white),
+        shape: CircleBorder(),
+      ),
+    );
   }
 }
