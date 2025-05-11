@@ -1,9 +1,10 @@
 import 'package:capstone_project/data/models/challenge_model.dart';
 import 'package:capstone_project/data/repositories/challenge_repository.dart';
-import 'package:capstone_project/presentantion/providers/challenge_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'challenge_provider.dart';
 
 class AddChallengeProvider extends ChangeNotifier {
 
@@ -69,19 +70,19 @@ class AddChallengeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addChallenge(BuildContext context) {
+  void addChallenge(BuildContext context) async {
     if(titleController.text.isNotEmpty && pointController.text.isNotEmpty && timeController.text.isNotEmpty && startDay != null && lastDay != null) {
-      final newChallenge = ChallengeModel(
-          writer: '작성자',
-          challengeName: titleController.text,
-          challengeType: challengeType,
-          point: int.parse(pointController.text),
-          exerciseTime: int.parse(timeController.text),
-          startDay: startDay!,
-          lastDay: lastDay!);
+      final newChallenge = ChallengeModel.createChallenge({
+        'writer': '작성자',
+        'challengeName': titleController.text,
+        'challengeType': challengeType,
+        'point': int.parse(pointController.text),
+        'exerciseTime': int.parse(timeController.text),
+        'startDay': startDay!,
+        'lastDay': lastDay!,});
       challengeProvider.challengeList.add(newChallenge);
       challengeRepository.addChallenge(newChallenge);
-      challengeProvider.saveChallengeStatus(true);
+      await challengeRepository.setChallengeId(newChallenge.id);
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

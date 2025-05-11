@@ -3,6 +3,7 @@ import 'package:capstone_project/presentantion/providers/challenge_provider.dart
 import 'package:capstone_project/presentantion/screens/add_challenge_screen.dart';
 import 'package:capstone_project/presentantion/widgets/challenge_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({super.key});
@@ -41,8 +42,8 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
           Row(
             children: [
               GestureDetector(
-                onTap: () {
-                  challengeProvider.saveChallengeStatus(false);
+                onTap: () async {
+                  await challengeProvider.removeChallengeId();
                 },
                 child: Icon(Icons.notifications_none_outlined, size: 28, color: mainTextColor,),
               ),
@@ -86,7 +87,22 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
               width: MediaQuery.sizeOf(context).width * 0.9,
               child: Column(
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      Spacer(),
+                      GestureDetector(
+                        // onTap: () async {
+                        //   await challengeProvider.getMyChallenge();
+                        // },
+                        child: Text('My 챌린지', style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: lightTextColor,
+                        ),),
+                      )
+                    ],
+                  ),
                   ...challengeProvider.challengeList.isNotEmpty
                       ? challengeProvider.challengeList
                       .map((e) => ChallengeItemWidget(challenge: e!))
@@ -101,8 +117,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          print('값 확인스 ${await challengeProvider.getChallengeStatus()}');
-          if(!(await challengeProvider.getChallengeStatus() ?? false)) {
+          if(await challengeProvider.getChallengeId() == '') {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => AddChallengeScreen())).then((value) => updateScreen(),);
           } else {

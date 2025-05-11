@@ -28,14 +28,19 @@ class ChallengeRepository {
     }
   }
 
-  Future<void> saveChallengeStatus(bool value) async {
+  Future<void> setChallengeId(String value) async {
     final sharedPref = await SharedPreferences.getInstance();
-    await sharedPref.setBool('challengeStatus', value);
+    await sharedPref.setString('challengeId', value);
   }
 
-  Future<bool?> getChallengeStatus() async {
+  Future<String> getChallengeId() async {
     final sharedPref = await SharedPreferences.getInstance();
-    return sharedPref.getBool('challengeStatus');
+    return sharedPref.getString('challengeId') ?? '';
+  }
+
+  Future<void> removeChallengeId() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    await sharedPref.remove('challengeId');
   }
 
 }

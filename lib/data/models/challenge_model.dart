@@ -8,6 +8,7 @@ class ChallengeModel {
   final DateTime startDay;
   final DateTime lastDay;
   int totalParticipants;
+  final String id;
 
   ChallengeModel({
     required this.writer,
@@ -17,8 +18,21 @@ class ChallengeModel {
     required this.exerciseTime,
     required this.startDay,
     required this.lastDay,
-    this.totalParticipants = 1
+    this.totalParticipants = 1,
+    required this.id
   });
+
+  factory ChallengeModel.createChallenge(Map<String, dynamic> json) =>
+      ChallengeModel(
+        writer: json['writer'],
+        challengeName: json['challengeName'],
+        challengeType: json['challengeType'],
+        point: json['point'],
+        exerciseTime: json['exerciseTime'],
+        startDay: json['startDay'],
+        lastDay: json['lastDay'],
+        id: '${DateTime.now().millisecondsSinceEpoch}'
+      );
 
   Map<String, dynamic> toJson() {
     return {
@@ -29,7 +43,8 @@ class ChallengeModel {
       'exerciseTime' : exerciseTime,
       'startDay' : startDay,
       'lastDay' : lastDay,
-      'totalParticipants' : totalParticipants
+      'totalParticipants' : totalParticipants,
+      'id' : id,
     };
   }
 

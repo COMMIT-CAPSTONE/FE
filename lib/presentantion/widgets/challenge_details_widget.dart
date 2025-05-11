@@ -1,4 +1,6 @@
 import 'package:capstone_project/data/models/challenge_model.dart';
+import 'package:capstone_project/presentantion/components/custom_button.dart';
+import 'package:capstone_project/presentantion/providers/challenge_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/colors.dart';
@@ -34,7 +36,7 @@ class ChallengeDetailsWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: mainTextColor,
           ), overflow: TextOverflow.ellipsis, maxLines: 2,),
-          SizedBox(height: 4,),
+          // SizedBox(height: 4,),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,13 +52,38 @@ class ChallengeDetailsWidget extends StatelessWidget {
                 height: 12,
               ),
               SizedBox(width: 5,),
-              Text('$startYear.$startMonth.$startDay ~ $lastYear.$lastMonth .$lastDay', style: TextStyle(
+              Text('$startYear.${startMonth.padLeft(2, '0')}.${startDay.padLeft(2, '0')} - $lastYear.${lastMonth.padLeft(2, '0')}.${lastDay.padLeft(2, '0')}', style: TextStyle(
                 fontSize: 12,
                 color: lightTextColor,
               ),),
             ],
           ),
           SizedBox(height: 10,),
+          Row(
+            children: [
+              Text('총 포인트 - ', style: TextStyle(
+                fontSize: 14,
+                color: mainTextColor,
+              ),),
+              Text('${challenge.point * challenge.totalParticipants} P', style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: mainTextColor,
+              ),),
+              Spacer(),
+              Text('${challenge.totalParticipants} 명', style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: mainTextColor,
+              ),),
+            ],
+          ),
+          Spacer(),
+          CustomButton(title: '참가하기 ${challenge.point} P', function: () async {
+            await challengeProvider.setChallengeId(challenge.id);
+            challengeProvider.addParticipants(challenge.id);
+            Navigator.of(context).pop();
+          }),
         ],
       ),
     );

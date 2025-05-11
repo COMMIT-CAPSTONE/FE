@@ -8,13 +8,35 @@ final ChallengeProvider challengeProvider = ChallengeProvider();
 class ChallengeProvider extends ChangeNotifier {
 
   List<ChallengeModel?> challengeList = [];
+  ChallengeModel? myChallenge;
 
-  Future<void> saveChallengeStatus(bool value) async {
-    challengeRepository.saveChallengeStatus(value);
+  Future<void> setChallengeId(String id) async {
+    await challengeRepository.setChallengeId(id);
   }
 
-  Future<bool?> getChallengeStatus() async {
-    return await challengeRepository.getChallengeStatus();
+  Future<String> getChallengeId() async {
+    return await challengeRepository.getChallengeId();
+  }
+
+  Future<void> removeChallengeId() async {
+    await challengeRepository.removeChallengeId();
+  }
+
+  void addParticipants(String id) {
+    for (var e in challengeList) {
+      if (e!.id == id) {
+        e.totalParticipants++;
+        break;
+      }
+    }
+  }
+
+  Future<void> getMyChallenge() async {
+    for (var e in challengeList) {
+      if (e!.id == await getChallengeId()) {
+        myChallenge = e;
+      }
+    }
   }
 
 }
