@@ -1,3 +1,4 @@
+import 'package:capstone_project/presenation/screens/community/writing_screen.dart';
 import 'package:flutter/material.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -23,9 +24,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            add();
-          });
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => WritingScreen()),
+          );
         },
         backgroundColor: Colors.red,
         child: Icon(Icons.add, color: Colors.white),

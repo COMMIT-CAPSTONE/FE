@@ -1,6 +1,6 @@
 import 'package:capstone_project/presenation/components/custom_button.dart';
 import 'package:capstone_project/presenation/screens/main_screen.dart';
-import 'package:capstone_project/presenation/screens/sign_in_screen.dart';
+import 'package:capstone_project/presenation/screens/auth/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {

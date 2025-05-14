@@ -1,4 +1,4 @@
-import 'package:capstone_project/presenation/screens/start_screen.dart';
+import 'package:capstone_project/presenation/screens/start/start_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashProvider extends ChangeNotifier {
