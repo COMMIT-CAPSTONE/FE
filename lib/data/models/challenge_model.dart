@@ -9,6 +9,7 @@ class ChallengeModel {
   final DateTime lastDay;
   int totalParticipants;
   final String id;
+  // final bool success;
 
   ChallengeModel({
     required this.writer,
@@ -19,7 +20,8 @@ class ChallengeModel {
     required this.startDay,
     required this.lastDay,
     this.totalParticipants = 1,
-    required this.id
+    required this.id,
+    // this.success = false
   });
 
   factory ChallengeModel.createChallenge(Map<String, dynamic> json) =>
@@ -31,7 +33,8 @@ class ChallengeModel {
         exerciseTime: json['exerciseTime'],
         startDay: json['startDay'],
         lastDay: json['lastDay'],
-        id: '${DateTime.now().millisecondsSinceEpoch}'
+        id: '${DateTime.now().millisecondsSinceEpoch}',
+        // success: json['success']
       );
 
   Map<String, dynamic> toJson() {

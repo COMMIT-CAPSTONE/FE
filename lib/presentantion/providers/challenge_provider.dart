@@ -31,12 +31,4 @@ class ChallengeProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getMyChallenge() async {
-    for (var e in challengeList) {
-      if (e!.id == await getChallengeId()) {
-        myChallenge = e;
-      }
-    }
-  }
-
 }

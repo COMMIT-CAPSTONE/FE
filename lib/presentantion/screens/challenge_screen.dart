@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:capstone_project/common/colors.dart';
 import 'package:capstone_project/presentantion/providers/challenge_provider.dart';
 import 'package:capstone_project/presentantion/screens/add_challenge_screen.dart';
+import 'package:capstone_project/presentantion/screens/my_challenge_screen.dart';
+import 'package:capstone_project/presentantion/screens/notification_screen.dart';
 import 'package:capstone_project/presentantion/widgets/challenge_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +24,24 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   void initState() {
     super.initState();
     challengeProvider.addListener(updateScreen);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Timer.periodic(Duration(seconds: 10), (timer) async {
+        print('웅냥냥');
+        final challengeId = await challengeProvider.getChallengeId();
+
+        for (var e in challengeProvider.challengeList) {
+          if (e != null && e.id == challengeId) {
+            if (DateTime.now().year == e.lastDay.year &&
+                DateTime.now().month == e.lastDay.month &&
+                DateTime.now().day == e.lastDay.day) {
+              await challengeProvider.removeChallengeId();
+            }
+          }
+        }
+      });
+    });
   }
+
 
   @override
   void dispose() {
@@ -43,7 +64,8 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  await challengeProvider.removeChallengeId();
+                  // await challengeProvider.removeChallengeId();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationScreen()));
                 },
                 child: Icon(Icons.notifications_none_outlined, size: 28, color: mainTextColor,),
               ),
@@ -73,7 +95,12 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                     ),
                   ),
                   Spacer(),
-                  Icon(Icons.search_rounded, size: 30, color: mainTextColor,),
+                  GestureDetector(
+                    onTap: () async {
+                      await challengeProvider.removeChallengeId();
+                    },
+                    child: Icon(Icons.search_rounded, size: 30, color: mainTextColor,),
+                  ),
                 ],
               ),
             ),
@@ -92,10 +119,12 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                     children: [
                       Spacer(),
                       GestureDetector(
-                        // onTap: () async {
-                        //   await challengeProvider.getMyChallenge();
-                        // },
-                        child: Text('My 챌린지', style: TextStyle(
+                        onTap: () async {
+                          // await challengeProvider.removeChallengeId();
+                          // 미아 챌린지 부분은 화면 오류남 해결 필요함
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyChallengeScreen()));
+                        },
+                        child: Text('MY 챌린지', style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: lightTextColor,
@@ -106,7 +135,10 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                   ...challengeProvider.challengeList.isNotEmpty
                       ? challengeProvider.challengeList
                       .map((e) => ChallengeItemWidget(challenge: e!))
-                      : [Text('할 수 있는 챌린지가 아직 없어요')],
+                      : [Text('할 수 있는 챌린지가 아직 없어요', style: TextStyle(
+                    fontSize: 18,
+                    color: mainTextColor
+                  ),)],
                   SizedBox(height: 20,),
                 ],
               ),

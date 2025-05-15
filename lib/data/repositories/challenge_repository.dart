@@ -31,6 +31,10 @@ class ChallengeRepository {
   Future<void> setChallengeId(String value) async {
     final sharedPref = await SharedPreferences.getInstance();
     await sharedPref.setString('challengeId', value);
+
+    final List<String> ids = sharedPref.getStringList('joinedChallengeIds') ?? [];
+    ids.add(value);
+    await sharedPref.setStringList('joinedChallengeIds', ids);
   }
 
   Future<String> getChallengeId() async {
@@ -41,6 +45,11 @@ class ChallengeRepository {
   Future<void> removeChallengeId() async {
     final sharedPref = await SharedPreferences.getInstance();
     await sharedPref.remove('challengeId');
+  }
+
+  Future<List<String>> getJoinedChallengeIds() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    return sharedPref.getStringList('joinedChallengeIds') ?? [];
   }
 
 }

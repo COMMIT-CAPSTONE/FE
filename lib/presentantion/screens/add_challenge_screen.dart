@@ -121,7 +121,8 @@ class _AddChallengeWidgetState extends State<AddChallengeScreen> {
                 SizedBox(height: 20,),
                 CustomButton(title: '챌린지 생성하기', function: () {
                   widget.provider.addChallenge(context);
-                })
+                }),
+                SizedBox(height: 20,),
               ],
             ),
           ),
