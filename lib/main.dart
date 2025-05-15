@@ -1,3 +1,4 @@
+import 'package:capstone_project/screens/auth/signin_screen.dart';
 import 'package:capstone_project/screens/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "team commit rlatpghks",
       debugShowCheckedModeBanner: false,
-      home: SignupScreen(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          color: Colors.white
+        )
+      ),
+      home: SigninScreen(),
     );
   }
 }
