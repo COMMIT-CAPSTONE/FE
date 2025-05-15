@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart' show SharedPreferences;
-import 'package:capstone_project/screens/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -113,24 +112,6 @@ class _SigninScreenState extends State<SigninScreen> {
                 fontColor: Colors.black,
                 onPressed: () {}
             ),
-            SizedBox(height: 20,),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => SignupScreen()
-                    )
-                  );
-                },
-                child: Text(
-                  "회원가입",
-                  style: TextStyle(
-                      fontFamily: "Pretendard",
-                      color: Colors.black54
-                  ),
-                )
-            )
           ],
         ),
       ),
