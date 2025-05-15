@@ -1,5 +1,4 @@
 import 'package:capstone_project/screens/auth/signin_screen.dart';
-import 'package:capstone_project/screens/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
