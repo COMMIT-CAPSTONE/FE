@@ -1,3 +1,4 @@
+import 'package:capstone_project/presenation/screens/location_register_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,9 +12,27 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: Text(''),
+          title: Text(
+            'millionz',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontFamily: 'NotoSansKR',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.pin_drop_outlined)),
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LocationRegisterScreen(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.pin_drop_outlined),
+            ),
             IconButton(
               onPressed: () {},
               icon: Icon(Icons.notifications_outlined),
