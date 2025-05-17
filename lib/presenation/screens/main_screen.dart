@@ -1,6 +1,6 @@
 import 'package:capstone_project/presenation/screens/challenge_screen.dart';
 import 'package:capstone_project/presenation/screens/community/community_screen.dart';
-import 'package:capstone_project/presenation/screens/home_screen.dart';
+import 'package:capstone_project/presenation/screens/home/home_screen.dart';
 import 'package:capstone_project/presenation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
