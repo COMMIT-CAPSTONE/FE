@@ -12,13 +12,13 @@ class MyChallengeProvider extends ChangeNotifier {
     {
       'challenge' : ChallengeModel(
           writer: '잉옹앙',
-          challengeName: '여기어때',
+          challengeName: '챌린지 A',
           challengeType: 'G',
           point: 1000,
           exerciseTime: 6,
           startDay: DateTime(2025, 4, 16),
           lastDay: DateTime(2025, 5, 1),
-          id: '43516735',
+          id: '123456789',
           totalParticipants: 10
       ),
       'completed' : false,
@@ -28,7 +28,7 @@ class MyChallengeProvider extends ChangeNotifier {
     {
       'challenge' : ChallengeModel(
         writer: '올라라ㅏㅏ',
-        challengeName: '이태인 바보sadfsdafsadfsdfdsfasdfsdfa',
+        challengeName: '챌린지 B',
         challengeType: 'P',
         point: 1000,
         exerciseTime: 3,
@@ -43,37 +43,16 @@ class MyChallengeProvider extends ChangeNotifier {
     }
   ];
 
-  Map<String, dynamic> challengeList = {};
+  ChallengeModel? nowChallenge;
 
-  // Future<void> printy() async {
-  //   print('잉용');
-  //   final String printData = await challengeRepository.getChallengeId();
-  //   print(printData);
-  //   print('앙');
-  // }
-
-
-  Future<void> getChallengeList() async {
+  Future<void> getNowChallenge() async {
     final id = await challengeRepository.getChallengeId();
-    final challengeList = {
-      'now' : null,
-      'notNow' : [],
-    };
 
     for (var e in completedChallenges) {
       if (e['challenge'].id == id) {
-        challengeList['now'] = e['challenge'];
-      } else {
-        challengeList['notNow']!.add(e['challenge']);
+        nowChallenge = e['challenge'];
       }
     }
-
-    this.challengeList = challengeList;
-
-    print('잉');
-    print(challengeList['now']);
-    print(challengeList['notNow']);
-    print('잉');
   }
 
 }

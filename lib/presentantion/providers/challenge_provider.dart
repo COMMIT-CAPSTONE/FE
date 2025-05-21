@@ -10,6 +10,11 @@ class ChallengeProvider extends ChangeNotifier {
   List<ChallengeModel?> challengeList = [];
   ChallengeModel? myChallenge;
 
+  Future<void> getChallengeList() async {
+    challengeList = await challengeRepository.getChallenges();
+    notifyListeners();
+  }
+
   Future<void> setChallengeId(String id) async {
     await challengeRepository.setChallengeId(id);
   }

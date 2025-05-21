@@ -9,7 +9,33 @@ final ChallengeRepository challengeRepository = ChallengeRepository();
 class ChallengeRepository {
 
   final client = Client();
-  final url = '';
+  final url = 'https://run.mocky.io/v3/01432482-bd4c-4788-ad74-dd2b49ca7706';
+
+  Future<List<ChallengeModel?>> getChallenges() async {
+    try {
+      
+      final response = await client.get(
+        Uri.parse(url),
+      );
+
+      if(response.statusCode >= 200 && response.statusCode < 300) {
+        final jsonBody = await jsonDecode(response.body);
+        final List<ChallengeModel> challengeList = [];
+        for(var challenge in jsonBody['challenges']) {
+          challengeList.add(ChallengeModel.createChallenge(challenge));
+        }
+
+        return challengeList;
+      }
+
+      print('챌린지 모두 가져오기 에러 코드: ${response.statusCode}');
+      return [];
+      
+    } catch(e) {
+      print('챌린지 모두 가져오기 에러다: $e');
+      return [];
+    }
+  }
 
   Future<bool> addChallenge(ChallengeModel newChallenge) async {
     try {

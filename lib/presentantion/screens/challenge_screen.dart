@@ -7,7 +7,6 @@ import 'package:capstone_project/presentantion/screens/my_challenge_screen.dart'
 import 'package:capstone_project/presentantion/screens/notification_screen.dart';
 import 'package:capstone_project/presentantion/widgets/challenge_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({super.key});
@@ -24,17 +23,18 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   void initState() {
     super.initState();
     challengeProvider.addListener(updateScreen);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Timer.periodic(Duration(seconds: 10), (timer) async {
-        print('웅냥냥');
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await challengeProvider.getChallengeList();
+      Timer.periodic(Duration(minutes: 10), (timer) async {
         final challengeId = await challengeProvider.getChallengeId();
 
         for (var e in challengeProvider.challengeList) {
           if (e != null && e.id == challengeId) {
             if (DateTime.now().year == e.lastDay.year &&
                 DateTime.now().month == e.lastDay.month &&
-                DateTime.now().day == e.lastDay.day) {
+                DateTime.now().day == e.lastDay.day + 1) {
               await challengeProvider.removeChallengeId();
+
             }
           }
         }
@@ -121,8 +121,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                       GestureDetector(
                         onTap: () async {
                           // await challengeProvider.removeChallengeId();
-                          // 미아 챌린지 부분은 화면 오류남 해결 필요함
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyChallengeScreen()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyChallengeScreen()));
                         },
                         child: Text('MY 챌린지', style: TextStyle(
                           fontSize: 12,

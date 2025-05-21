@@ -20,9 +20,9 @@ class ChallengeModel {
     required this.startDay,
     required this.lastDay,
     this.totalParticipants = 1,
-    required this.id,
-    // this.success = false
-  });
+    String? id,
+    // this.success = false,
+  }) : id = id ?? '${DateTime.now().millisecondsSinceEpoch}';
 
   factory ChallengeModel.createChallenge(Map<String, dynamic> json) =>
       ChallengeModel(
@@ -31,9 +31,9 @@ class ChallengeModel {
         challengeType: json['challengeType'],
         point: json['point'],
         exerciseTime: json['exerciseTime'],
-        startDay: json['startDay'],
-        lastDay: json['lastDay'],
-        id: '${DateTime.now().millisecondsSinceEpoch}',
+        startDay: DateTime.parse(json['startDay']),
+        lastDay: DateTime.parse(json['lastDay']),
+        id: json['id'].toString()
         // success: json['success']
       );
 

@@ -17,7 +17,7 @@ class _MyChallengeScreenState extends State<MyChallengeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await myChallengeProvider.getChallengeList();
+      await myChallengeProvider.getNowChallenge();
     },);
   }
 
@@ -44,32 +44,35 @@ class _MyChallengeScreenState extends State<MyChallengeScreen> {
                 color: mainTextColor
               ),),
               SizedBox(height: 5,),
-              myChallengeProvider.challengeList['now']  != null
-                  ? ChallengeItemWidget(challenge: myChallengeProvider.challengeList['now'])
+              myChallengeProvider.nowChallenge != null
+                  ? ChallengeItemWidget(challenge: myChallengeProvider.nowChallenge!)
                   : Text('현재 진행중인 챌린지가 아직 없어요', style: TextStyle(
                       fontSize: 18,
                       color: mainTextColor
                   ),),
-              SizedBox(height: 5,),
+              SizedBox(height: 10,),
               Container(
                 width: double.infinity,
                 height: 1,
                 color: lightTextColor,
               ),
-              SizedBox(height: 5,),
-              Text('지금까지 참여한 참가중인 챌린지', style: TextStyle(
+              SizedBox(height: 10,),
+              Text('지금까지 참여한 챌린지', style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: mainTextColor
               ),),
               SizedBox(height: 5,),
-              myChallengeProvider.challengeList['notNow']  != null
+              myChallengeProvider.completedChallenges.isNotEmpty
                   ? Column(
                 children: [
-                  myChallengeProvider.challengeList['notNow'].map<Widget>((e) {
-                    print('시발');
-                    return ChallengeItemWidget(challenge: e['challenge'], click: false,);
-                  },).toList
+                  ...myChallengeProvider.completedChallenges.map((e) {
+                    if(e['challenge'] != myChallengeProvider.nowChallenge) {
+                      return ChallengeItemWidget(challenge: e['challenge'], click: false,);
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },)
                 ],
               ) : Text('지금까지 참여한 챌린지가 아직 없어요', style: TextStyle(
                           fontSize: 18,
