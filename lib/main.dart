@@ -1,7 +1,9 @@
-import 'package:capstone_project/screens/auth/signin_screen.dart';
+import 'package:capstone_project/screens/user/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 void main() {
+  KakaoSdk.init(nativeAppKey: '64ecc66fa2a864a5a895e024c88cf1a9');
   runApp(const MyApp());
 }
 
