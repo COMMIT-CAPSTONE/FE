@@ -38,7 +38,7 @@ class _CustomSwiperState extends State<CustomSwiper> {
 
         _pageController.animateToPage(
           nextPage,
-          duration: const Duration(milliseconds: 350),
+          duration: const Duration(milliseconds: 1000),
           curve: Curves.easeInOut,
         );
       });
@@ -79,11 +79,24 @@ class _CustomSwiperState extends State<CustomSwiper> {
             ),
           ),
           Positioned(
-            bottom: 40,
-            right: 25,
-            child: Text(
-              '${_currentIndex + 1} / ${widget.items.length}',
-              style: TextStyle(fontWeight: FontWeight.w700),
+            bottom: 38,
+            right: 20,
+            child: Container(
+              width: 37,
+              height: 25,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade800.withOpacity(0.7),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              child: Center(
+                child: Text(
+                  '${_currentIndex + 1}/${widget.items.length}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

@@ -23,10 +23,10 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   final List<IconData> _icons = [
-    Icons.home,
-    Icons.comment,
-    Icons.calendar_month,
-    Icons.person,
+    Icons.home_outlined,
+    Icons.comment_outlined,
+    Icons.calendar_month_outlined,
+    Icons.person_outline,
   ];
 
   final List<String> _labels = ['홈', '밀리토크', '챌린지', '마이'];
@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
                 blurStyle: BlurStyle.outer,
               ),
             ],
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+            // borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -77,8 +77,8 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
                 child: Container(
-                  width: 60,
-                  height: 60,
+                  width: 100,
+                  height: 80,
                   color: Colors.transparent,
                   child: AnimatedScale(
                     scale: isPressed[index] ? 0.9 : 1.0,

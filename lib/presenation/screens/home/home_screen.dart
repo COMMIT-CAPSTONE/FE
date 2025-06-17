@@ -1,14 +1,46 @@
+import 'package:capstone_project/common/url.dart';
 import 'package:capstone_project/presenation/components/custom_swiper.dart';
-import 'package:capstone_project/presenation/screens/start/splash_screen.dart';
+import 'package:capstone_project/presenation/screens/location_register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _blockScrollOnce = false;
+
+  void _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void handleTap(int index) {
+    switch (index) {
+      case 0:
+        _launchURL(url0);
+        break;
+      case 1:
+        _launchURL(url1);
+        break;
+      case 2:
+        _launchURL(url2);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow.shade200,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // AppBar 고정
@@ -35,7 +67,14 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LocationRegisterScreen(),
+                              ),
+                            );
+                          },
                           icon: const Icon(Icons.pin_drop_outlined),
                         ),
                         IconButton(
@@ -72,69 +111,119 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           DraggableScrollableSheet(
-            initialChildSize: 0.70, // 시작 높이 비율 (55%)
-            minChildSize: 0.55, // 최소 높이 비율
-            maxChildSize: 0.9, // 최대 높이 비율
+            initialChildSize: 0.75,
+            minChildSize: 0.75,
+            maxChildSize: 0.9,
             builder: (context, scrollController) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                      spreadRadius: 2,
+              return NotificationListener<ScrollNotification>(
+                onNotification: (notification) {
+                  if (notification is ScrollUpdateNotification) {
+                    final scrollPosition = scrollController.position;
+                    if (scrollPosition.pixels <=
+                            scrollPosition.minScrollExtent &&
+                        notification.scrollDelta! < 0) {
+                      if (!_blockScrollOnce) {
+                        _blockScrollOnce = true;
+                        return true;
+                      }
+                    }
+                  } else {
+                    _blockScrollOnce = false;
+                  }
+                  return false;
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 15,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(30),
                     ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    CustomSwiper(
-                      items: List.generate(3, (index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: ListView(
+                    controller: scrollController,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 5,
+                        color: Colors.transparent,
+                      ),
+                      Center(
+                        child: Container(
+                          width: 35,
+                          height: 5,
                           decoration: BoxDecoration(
-                            color: Colors.blue[(index + 1) * 100],
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          child: Text(
-                            'Slide ${index + 1}',
-                            style: TextStyle(color: Colors.white, fontSize: 24),
-                          ),
-                        );
-                      }),
-                      height: 150,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      onTap: (index) {
-                        switch (index) {
-                          case 0:
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => SplashScreen()),
-                            );
-                            break;
-                          case 1:
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => SplashScreen()),
-                            );
-                            break;
-                          case 2:
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => SplashScreen()),
-                            );
-                            break;
-                          default:
-                        }
-                      },
-                    ),
-                  ],
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 16,
+                        color: Colors.transparent,
+                      ),
+                      CustomSwiper(
+                        items: List.generate(3, (index) {
+                          return Image.asset(
+                            'assets/images/banner${index + 1}.png',
+                            fit: BoxFit.cover,
+                          );
+                        }),
+                        height: 100,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        onTap: (index) => handleTap(index),
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(color: Colors.red),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: double.infinity,
+                        height: 100,
+                        color: Colors.red,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: double.infinity,
+                        height: 100,
+                        color: Colors.purple,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: double.infinity,
+                        height: 100,
+                        color: Colors.orange,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: double.infinity,
+                        height: 100,
+                        color: Colors.green,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: double.infinity,
+                        height: 100,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               );
             },
@@ -259,7 +348,8 @@ class HomeScreen extends StatelessWidget {
 //                         ),
 //                       ],
 //                     ),
-//                     Container(width: 100, height: 100, color: Colors.red),
+//                     Container(
+//                     : 100, height: 100, color: Colors.red),
 //                   ],
 //                 ),
 //               ),
